@@ -34,7 +34,7 @@ public class SpartanTestsWithParameters {
     public void test1() {
         Response response = given().
                                     accept(ContentType.JSON)
-                                    .and().pathParams("id", 5)
+                                    .and().pathParam("id", 5)
                             .when()
                                     .get("/api/spartans/{id}");
 
@@ -100,6 +100,7 @@ public class SpartanTestsWithParameters {
 
     }
 
+    @DisplayName("GET request to /api/spartans/search with Query Params (MAP)")
     @Test
     public void test4(){
         //create a map and add query parameters
