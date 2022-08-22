@@ -1,5 +1,6 @@
 package com.cydeo.day3;
 
+import com.cydeo.utilities.HRTestBase;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,14 +10,9 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ORDSApiTestsWithParameters {
+public class ORDSApiTestsWithParameters extends HRTestBase {
 
-    //BeforeAll is an annotation equal to @BeforeClass in testNG, we use with static method name
-    @BeforeAll
-    public static void init() {
-        //save baseurl inside this variable so that we dont need to type each http method.
-        baseURI = "http://44.202.93.236:1000/ords/hr";
-    }
+//we deleted @BeforeAll from here, and extended HRTestBase
 
     /*
     Given accept type is Json
