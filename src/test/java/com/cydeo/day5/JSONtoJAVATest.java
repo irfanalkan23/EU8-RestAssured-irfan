@@ -24,8 +24,14 @@ public class JSONtoJAVATest extends SpartanTestBase {
         Map<String,Object> jsonMap = response.as(Map.class);
 
         //when we run up to here, we get this fail message:
-        // java.lang.IllegalStateException: Cannot parse object because no JSON deserializer found in classpath.
-        // Please put either Jackson (Databind) or Gson in the classpath.
+        // "java.lang.IllegalStateException: Cannot parse object because no JSON deserializer found in classpath.
+        // Please put either Jackson (Databind) or Gson in the classpath."
+        //--> we added Jackson dependency in pom.xml
+
+        System.out.println(jsonMap.toString());
+        //after we got the map, we can use Hamcrest or Junit assertions to do assertion
+        String actualName = (String) jsonMap.get("name");
+        assertThat(actualName, is("Meta"));
     }
 
 }
