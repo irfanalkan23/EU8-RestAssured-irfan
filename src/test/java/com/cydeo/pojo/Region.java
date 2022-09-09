@@ -15,7 +15,7 @@ public class Region {
 
     //if your jsonkey and variable name not matching, you can map it with jsonProperty
     @JsonProperty("region_id")
-    private int regionId;
+    private int rId;
 
     @JsonProperty("region_name")
     private String region_name;
