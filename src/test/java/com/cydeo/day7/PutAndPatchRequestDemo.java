@@ -1,5 +1,6 @@
 package com.cydeo.day7;
 
+import com.cydeo.pojo.Spartan;
 import com.cydeo.utilities.SpartanTestBase;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.DisplayName;
@@ -31,8 +32,18 @@ public class PutAndPatchRequestDemo extends SpartanTestBase {
                 .then()
                 .statusCode(204);
 
-        //send a GET request after update, make sure updated field changed, or the new info matching
+        //task: send a GET request after update, make sure updated field changed, or the new info matching
         //with requestBody that we send (save in Spartan object)
+
+        Spartan spartanPut = given().accept(ContentType.JSON)
+                .and().pathParam("id", 118)
+                .when().get("/api/spartans/{id}")
+                .then().statusCode(200).log().all()
+                .extract().as(Spartan.class);
+
+        assertThat(putRequestMap.get("name"), is(spartanPut.getName()));
+        assertThat(putRequestMap.get("gender"), is(spartanPut.getGender()));
+        assertThat(putRequestMap.get("phone"), is(spartanPut.getPhone()));
 
     }
 
@@ -40,32 +51,40 @@ public class PutAndPatchRequestDemo extends SpartanTestBase {
     @Test
     public void PATCHRequest(){
         //just like post request we have different options to send body, we will go with map
-        Map<String, Object> putRequestMap = new LinkedHashMap<>();
-        putRequestMap.put("phone",8811111111L);
+        Map<String, Object> patchRequestMap = new LinkedHashMap<>();
+        patchRequestMap.put("phone",8811111111L);
 
         given()
                 .contentType(ContentType.JSON)
-                .body(putRequestMap).log().all()
+                .body(patchRequestMap).log().all()
                 .and().pathParam("id",118)
                 .when().patch("/api/spartans/{id}")
                 .then()
                 .statusCode(204);
 
-        //send a GET request after update, make sure updated field changed, or the new info matching
+        //task: send a GET request after update, make sure updated field changed, or the new info matching
         //with requestBody that we send (save in Spartan object)
+        Spartan spartanPatch = given().accept(ContentType.JSON)
+                .and().pathParam("id", 118)
+                .when().get("/api/spartans/{id}")
+                .then().statusCode(200).log().all()
+                .extract().as(Spartan.class);
 
+        assertThat(patchRequestMap.get("phone"), is(spartanPatch.getPhone()));
     }
 
     @DisplayName("DELETE one spartan")
     @Test
     public void deleteSpartan(){
-        int idToDelete = 117;
+        int idToDelete = 116;
 
         given().pathParam("id", idToDelete)
                 .when().delete("/api/spartans/{id}")
                 .then().statusCode(204);
 
-        //send a get request after you delete make sure you are getting 404
-
+        //task: send a get request after you delete make sure you are getting 404
+        given().accept(ContentType.JSON)
+                .when().get("/api/spartans/idToDelete")
+                .then().statusCode(404);
     }
 }
