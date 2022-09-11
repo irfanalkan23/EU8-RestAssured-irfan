@@ -2,6 +2,7 @@ package com.cydeo.day7;
 
 import com.cydeo.pojo.Spartan;
 import com.cydeo.utilities.SpartanTestBase;
+import com.cydeo.utilities.SpartanUtil;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
@@ -62,10 +63,12 @@ public class SpartanPostRequestDemo extends SpartanTestBase {
     public void postMethod2(){
 
         //create a map to keep "request json body" information
-        Map<String,Object> requestJsonMap = new LinkedHashMap<>();
-        requestJsonMap.put("name", "Severus");
-        requestJsonMap.put("gender", "Male");
-        requestJsonMap.put("phone", 8877445596L);
+//        Map<String,Object> requestJsonMap = new LinkedHashMap<>();
+//        requestJsonMap.put("name", "Severus");
+//        requestJsonMap.put("gender", "Male");
+//        requestJsonMap.put("phone", 8877445596L);
+        Map<String, Object> requestJsonMap = SpartanUtil.spartanJsonBodyMap();
+        System.out.println("requestJsonMap = " + requestJsonMap);
 
         Response response = given().accept(ContentType.JSON).and()  //"I want to accept JSON"
                 .contentType(ContentType.JSON)  //"I'm sending JSON"
@@ -80,9 +83,9 @@ public class SpartanPostRequestDemo extends SpartanTestBase {
 
         String expectedResponseMessage = "A Spartan is Born!";
         assertThat(response.path("success"), is(expectedResponseMessage));
-        assertThat(response.path("data.name"), is("Severus"));
-        assertThat(response.path("data.gender"), is("Male"));
-        assertThat(response.path("data.phone"), is(8877445596L));
+        assertThat(response.path("data.name"), is(requestJsonMap.get("name")));
+        assertThat(response.path("data.gender"), is(requestJsonMap.get("gender")));
+        assertThat(response.path("data.phone"), is(requestJsonMap.get("phone")));
 
         //let's see the response part as well
         response.prettyPrint();
@@ -169,5 +172,6 @@ public class SpartanPostRequestDemo extends SpartanTestBase {
     //use faker library(add as a dependency) to assign each time different information
     //for name,gender,phone number
     //then use your method for creating spartan as a map,dynamically.
+    //--> task completed --> postMethod2()
 
 }
