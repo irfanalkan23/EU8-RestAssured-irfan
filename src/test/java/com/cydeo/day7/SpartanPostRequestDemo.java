@@ -173,5 +173,6 @@ public class SpartanPostRequestDemo extends SpartanTestBase {
     //for name,gender,phone number
     //then use your method for creating spartan as a map,dynamically.
     //--> task completed --> postMethod2()
+    //last two "Day6..." commit notes are actually Day7
 
 }
