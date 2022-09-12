@@ -85,7 +85,7 @@ public class SpartanPostRequestDemo extends SpartanTestBase {
         assertThat(response.path("success"), is(expectedResponseMessage));
         assertThat(response.path("data.name"), is(requestJsonMap.get("name")));
         assertThat(response.path("data.gender"), is(requestJsonMap.get("gender")));
-        assertThat(response.path("data.phone"), is(requestJsonMap.get("phone")));
+        assertThat(response.path("data.phone").toString(), is(requestJsonMap.get("phone")));
 
         //let's see the response part as well
         response.prettyPrint();
