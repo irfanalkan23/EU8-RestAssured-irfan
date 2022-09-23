@@ -47,7 +47,7 @@ public class OldRestAssuredTest extends SpartanNewBase {
         .expect()
                 .statusCode(200)
                 .and()
-                .contentType(ContentType.JSON)
+                .contentType(ContentType.JSON)  // *--> same as .contentType("application/json")
                 .body("id[0]", is(10))
                 //even if the first assertion fails, the test will continue = "soft assertion"
                 .body("id[5]", is(199))
