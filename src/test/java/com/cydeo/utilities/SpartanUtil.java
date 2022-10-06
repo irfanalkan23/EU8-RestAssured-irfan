@@ -16,12 +16,13 @@ public class SpartanUtil {
 
         requestJsonMap.put("name", faker.name().firstName());
 
-        if (faker.random().nextBoolean().equals(true)){
-            requestJsonMap.put("gender", "Male");
-        } else {
-            requestJsonMap.put("gender", "Female");
-        }
+//        if (faker.random().nextBoolean().equals(true)){
+//            requestJsonMap.put("gender", "Male");
+//        } else {
+//            requestJsonMap.put("gender", "Female");
+//        }
 
+        requestJsonMap.put("gender", faker.demographic().sex());
         requestJsonMap.put("phone", faker.numerify("##########"));
 
         return requestJsonMap;
